@@ -12,7 +12,7 @@ CORS(app)
 # --- DATABASE CONFIGURATION ---
 # Get these details from your DirectAdmin MySQL Management page
 DB_CONFIG = {
-    'host': '127.0.0.1', 
+    'host': 'graceintltemple.org', 
     'user': 'root',
     'password': 'Eben@18..',
     'database': 'eco'
