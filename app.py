@@ -5,15 +5,20 @@ import mysql.connector
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from thefuzz import fuzz
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+
+# Update your DB_CONFIG to use os.getenv()
 DB_CONFIG = {
-    'host': 'graceintltemple.org', 
-    'user': 'graceintltemple_eco',
-    'password': 'PpZYn46x6rxQDntmbnA5',
-    'database': 'graceintltemple_eco'
+    'host': os.getenv('DB_HOST'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASS'),
+    'database': os.getenv('DB_NAME')
 }
 
 STOP_WORDS = {"a", "an", "the", "is", "are", "am", "i", "you", "he", "she", "it", "we", "they", 

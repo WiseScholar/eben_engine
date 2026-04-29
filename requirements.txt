@@ -2,4 +2,5 @@ flask
 flask-cors
 thefuzz
 mysql-connector-python
+python-dotenv
 gunicorn
