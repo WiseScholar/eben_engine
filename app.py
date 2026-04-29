@@ -102,6 +102,15 @@ class EbenEngine:
     
 eben = EbenEngine('intents.json')
 
+# --- HEARTBEAT ENDPOINT ---
+@app.route('/api/status', methods=['GET'])
+def status():
+    return jsonify({
+        "status": "online",
+        "engine": "E.B.E.N. v2.1",
+        "message": "Neural systems stable."
+    }), 200
+    
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.get_json()
