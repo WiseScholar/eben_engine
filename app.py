@@ -12,9 +12,9 @@ CORS(app)
 # --- DATABASE CONFIGURATION ---
 # Get these details from your DirectAdmin MySQL Management page
 DB_CONFIG = {
-    'host': 'graceintltemple.org', 
+    'host': 'localhost', 
     'user': 'root',
-    'password': 'Eben@18..',
+    'password': 'PpZYn46x6rxQDntmbnA5',
     'database': 'eco'
 }
 
