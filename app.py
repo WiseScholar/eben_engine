@@ -27,12 +27,12 @@ class EbenEngine:
         with open(knowledge_path, 'r') as file:
             self.memory = json.load(file)
 
-    def log_to_db(self, user_msg, clean_msg, intent, score):
+    def log_to_db(self, user_name, user_msg, clean_msg, intent, score):
         try:
             conn = mysql.connector.connect(**DB_CONFIG)
             cursor = conn.cursor()
-            query = "INSERT INTO eben_chat_logs (user_message, cleaned_message, matched_intent, confidence_score) VALUES (%s, %s, %s, %s)"
-            cursor.execute(query, (user_msg, clean_msg, intent, int(score)))
+            query = "INSERT INTO eben_chat_logs (user_name, user_message, cleaned_message, matched_intent, confidence_score) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, (user_name, user_msg, clean_msg, intent, int(score)))
             conn.commit()
             cursor.close()
             conn.close()
