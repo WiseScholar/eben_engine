@@ -47,14 +47,17 @@ class EbenEngine:
 
     def process_message(self, user_message, user_name):
         clean_user_message = self.clean_text(user_message)
+        # Extract first name (e.g., "Eben" from "Eben Tefe")
         first_name = user_name.split()[0] if user_name else "Scholar"
         
+        # Handle empty/unintelligible input
         if not clean_user_message:
              return f"I didn't quite catch that, {first_name}. Could you provide a bit more detail?"
 
         best_intent = None
         highest_confidence = 0
         
+        # Search memory for the best pattern match
         for intent in self.memory['intents']:
             for pattern in intent['patterns']:
                 clean_pattern = self.clean_text(pattern)
@@ -65,21 +68,33 @@ class EbenEngine:
 
         matched_tag = best_intent['tag'] if best_intent else "unmatched"
         
-        # Log to SQL with user_name now included
+        # Log telemetry data to SQL
         self.log_to_db(user_name, user_message, clean_user_message, matched_tag, highest_confidence)
 
+        # Handle low confidence / unmatched queries
         if highest_confidence < 60:
+            # We only use the name here once to keep the error polite
             return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase that?"
             
-        # Select response and inject name if {name} placeholder exists in intents.json
+        # Select a random response from the matched intent
         raw_response = random.choice(best_intent['responses'])
         
-        # If your JSON has {name}, it replaces it. If not, we can just prefix it for a personal touch.
+        # --- SMART PERSONALIZATION LOGIC ---
+        
+        # 1. If we have a manual {name} placeholder, replace it and return immediately
         if "{name}" in raw_response:
             return raw_response.replace("{name}", first_name)
-        else:
-            return f"Certainly {first_name}, {raw_response}"
+        
+        # 2. If it's a greeting, we force the name in for a warm welcome
+        if matched_tag == "greeting":
+            # Replaces "Scholar" with the first name if it exists in your greeting strings
+            return raw_response.replace("Scholar", first_name)
 
+        # 3. For all other intents (pricing, rules, etc.), return the clean response
+        # This prevents the name from appearing in every single bubble.
+        # We also strip out any accidental {name} tags left in the JSON
+        return raw_response.replace("{name}", "").strip()
+    
 eben = EbenEngine('intents.json')
 
 @app.route('/api/chat', methods=['POST'])

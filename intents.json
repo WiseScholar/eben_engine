@@ -2,15 +2,31 @@
   "intents": [
     {
       "tag": "greeting",
-      "patterns": ["hi", "hello", "hey", "good morning", "is anyone there", "wake up", "yo"],
+      "patterns": [
+        "hi",
+        "hello",
+        "hey",
+        "good morning",
+        "is anyone there",
+        "wake up",
+        "yo"
+      ],
       "responses": [
-        "Hello {name}! I am E.B.E.N., the Sanctuary's automated assistant. How can I assist you today?", 
+        "Hello {name}! I am E.B.E.N., the Sanctuary's automated assistant. How can I assist you today?",
         "Greetings {name}! E.B.E.N. systems online. What do you need assistance with?"
       ]
     },
     {
       "tag": "goodbye",
-      "patterns": ["bye", "goodbye", "see you later", "thanks", "thank you", "ok thanks", "that helps"],
+      "patterns": [
+        "bye",
+        "goodbye",
+        "see you later",
+        "thanks",
+        "thank you",
+        "ok thanks",
+        "that helps"
+      ],
       "responses": [
         "You're very welcome, {name}. E.B.E.N. is always here if you need further assistance. Have a productive day!",
         "Acknowledged. Feel free to reach out if you need anything else, {name}. Logging off."
@@ -18,77 +34,211 @@
     },
     {
       "tag": "identity",
-      "patterns": ["who are you", "what is your name", "are you a human", "jarvis", "are you a bot"],
+      "patterns": [
+        "who are you",
+        "what is your name",
+        "are you a human",
+        "jarvis",
+        "are you a bot"
+      ],
       "responses": [
         "I am E.B.E.N. (Electronic Broadcast & Engagement Nexus), a digital assistant designed to manage operations here at the Eco Green Sanctuary."
       ]
     },
     {
       "tag": "availability",
-      "patterns": ["have any chance still getting room", "are there rooms left", "is it full", "can i still get a spot", "waiting list", "is there space"],
+      "patterns": [
+        "have any chance still getting room",
+        "are there rooms left",
+        "is it full",
+        "can i still get a spot",
+        "waiting list",
+        "is there space"
+      ],
       "responses": [
         "There is always a chance, {name}. Our 'Residency Guardian' system automatically revokes bookings if payments aren't verified within 48 hours. Keep a close eye on the dashboard; as soon as a slot is revoked, it becomes available for you to grab instantly!"
       ]
     },
     {
+      "tag": "acknowledgment",
+      "patterns": [
+        "okay",
+        "ok",
+        "alright",
+        "cool",
+        "noted",
+        "i see",
+        "understood"
+      ],
+      "responses": [
+        "Understood.",
+        "Acknowledged.",
+        "I'm here if you need anything else!"
+      ]
+    },
+    {
       "tag": "booking_inquiry",
-      "patterns": ["how do i book", "i want a room", "how to get a spot", "process of booking", "reservation", "book a bed"],
+      "patterns": [
+        "how do i book",
+        "i want a room",
+        "how to get a spot",
+        "process of booking",
+        "reservation",
+        "book a bed"
+      ],
       "responses": [
         "To secure your spot, {name}, log into your dashboard and click 'Book a Room'. Select your preferred block and bed, then wait for Administration to approve your request."
       ]
     },
     {
       "tag": "booking_rule",
-      "patterns": ["how long to pay", "when is the deadline", "48 hours", "time limit", "when will my booking expire"],
+      "patterns": [
+        "how long to pay",
+        "when is the deadline",
+        "48 hours",
+        "time limit",
+        "when will my booking expire"
+      ],
       "responses": [
         "Once your suite is approved, {name}, you have exactly 48 hours to upload your payment receipt. If your deadline falls on a weekend, the system automatically extends it to Monday night."
       ]
     },
     {
       "tag": "payment_info",
-      "patterns": ["how to pay", "bank details", "account number", "where do i send money", "stanbic"],
+      "patterns": [
+        "how to pay",
+        "bank details",
+        "account number",
+        "where do i send money",
+        "stanbic"
+      ],
       "responses": [
         "You can make a bank transfer to: Stanbic Bank Ghana Ltd. Account Name: Alfreda Addo-Mensah. Account Number: 9040009244799. Please ensure you use your full name as the reference, {name}!"
       ]
     },
     {
       "tag": "pricing",
-      "patterns": ["how much is it", "cost", "price", "fees", "how much is a room", "what are the charges"],
+      "patterns": [
+        "how much is it",
+        "cost",
+        "price",
+        "fees",
+        "how much is a room",
+        "what are the charges"
+      ],
       "responses": [
         "Room prices vary depending on the Block and the specific suite type. Please log into your dashboard, {name}, and navigate to the booking section for the exact financial breakdown."
       ]
     },
     {
       "tag": "receipt_upload",
-      "patterns": ["i have paid", "upload receipt", "where to put receipt", "payment done", "verify my payment"],
+      "patterns": [
+        "i have paid",
+        "upload receipt",
+        "where to put receipt",
+        "payment done",
+        "verify my payment"
+      ],
       "responses": [
         "Great work, {name}! You can upload your payment receipt directly on your Dashboard. Once uploaded, the Administration will audit it. If approved, your room is officially secured."
       ]
     },
     {
       "tag": "location",
-      "patterns": ["where is the hostel", "location", "address", "how to get there", "gctu", "map"],
+      "patterns": [
+        "where is the hostel",
+        "location",
+        "address",
+        "how to get there",
+        "gctu",
+        "map"
+      ],
       "responses": [
         "The Eco Green Sanctuary is conveniently located near the Ghana Communication Technology University (GCTU) campus. Refined living, just steps from your lectures, {name}."
       ]
     },
     {
       "tag": "amenities",
-      "patterns": ["wifi", "electricity", "water", "fridge", "ac", "features", "facilities", "what is included"],
+      "patterns": [
+        "wifi",
+        "electricity",
+        "water",
+        "fridge",
+        "ac",
+        "features",
+        "facilities",
+        "what is included"
+      ],
       "responses": [
         "The Sanctuary provides premium facilities designed for the modern scholar, {name}. This includes high-speed internet, consistent utility supply, and highly refined living spaces."
       ]
     },
     {
       "tag": "roommate",
-      "patterns": ["choose roommate", "who is in my room", "can i live with my friend", "roommates"],
+      "patterns": [
+        "choose roommate",
+        "who is in my room",
+        "can i live with my friend",
+        "roommates"
+      ],
       "responses": [
         "Once your booking is verified and fully paid, {name}, the system's Roommate Sync feature will automatically update your dashboard so you can see your assigned roommates."
       ]
     },
     {
+      "tag": "status_inquiry",
+      "patterns": [
+        "has my room been approved",
+        "check my status",
+        "is my booking ready",
+        "did you see my payment",
+        "verification status",
+        "approval status"
+      ],
+      "responses": [
+        "Your live status is always available on your Main Dashboard, {name}. If your status says 'Pending', the Administration is still auditing your request. Please be patient while we synchronize our records."
+      ]
+    },
+    {
+      "tag": "help_general",
+      "patterns": [
+        "help",
+        "i am stuck",
+        "what can you do",
+        "commands",
+        "i don't understand",
+        "how to use this"
+      ],
+      "responses": [
+        "I am here to guide you through the Sanctuary residency process, {name}. You can ask me about booking procedures, payment details, room amenities, or our 48-hour revocation policy. What specifically can I clarify for you?"
+      ]
+    },
+    {
+      "tag": "gratitude",
+      "patterns": [
+        "you are smart",
+        "good job",
+        "nice bot",
+        "i like you",
+        "best ai",
+        "thanks a lot"
+      ],
+      "responses": [
+        "I'm programmed to ensure your experience at the Sanctuary is seamless, {name}. Your appreciation is logged!",
+        "It is my pleasure to assist, {name}. Efficiency is my primary directive."
+      ]
+    },
+    {
       "tag": "human_contact",
-      "patterns": ["talk to human", "warden", "admin", "real person", "call someone", "phone number", "manager"],
+      "patterns": [
+        "talk to human",
+        "warden",
+        "admin",
+        "real person",
+        "call someone",
+        "phone number",
+        "manager"
+      ],
       "responses": [
         "I can only handle digital inquiries, {name}. If you require human assistance, please reach out to the Sanctuary Administration directly through the contact numbers provided on our main website."
       ]
