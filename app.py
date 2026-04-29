@@ -13,9 +13,9 @@ CORS(app)
 # Get these details from your DirectAdmin MySQL Management page
 DB_CONFIG = {
     'host': 'localhost', 
-    'user': 'root',
+    'user': 'graceintltemple_eco',
     'password': 'PpZYn46x6rxQDntmbnA5',
-    'database': 'eco'
+    'database': 'graceintltemple_eco'
 }
 
 STOP_WORDS = {"a", "an", "the", "is", "are", "am", "i", "you", "he", "she", "it", "we", "they", 
