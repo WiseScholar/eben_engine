@@ -1,7 +1,7 @@
 import json
 import random
 import re
-import mysql.connector # Added this
+import mysql.connector
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from thefuzz import fuzz
@@ -9,8 +9,6 @@ from thefuzz import fuzz
 app = Flask(__name__)
 CORS(app)
 
-# --- DATABASE CONFIGURATION ---
-# Get these details from your DirectAdmin MySQL Management page
 DB_CONFIG = {
     'host': 'graceintltemple.org', 
     'user': 'graceintltemple_eco',
@@ -31,7 +29,8 @@ class EbenEngine:
         try:
             conn = mysql.connector.connect(**DB_CONFIG)
             cursor = conn.cursor()
-            query = "INSERT INTO eben_chat_logs (user_name, user_message, cleaned_message, matched_intent, confidence_score) VALUES (%s, %s, %s, %s)"
+            # Fixed: Added a 5th %s for the confidence_score
+            query = "INSERT INTO eben_chat_logs (user_name, user_message, cleaned_message, matched_intent, confidence_score) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(query, (user_name, user_msg, clean_msg, intent, int(score)))
             conn.commit()
             cursor.close()
@@ -46,10 +45,12 @@ class EbenEngine:
         filtered_words = [w for w in words if w not in STOP_WORDS]
         return " ".join(filtered_words)
 
-    def process_message(self, user_message):
+    def process_message(self, user_message, user_name):
         clean_user_message = self.clean_text(user_message)
+        first_name = user_name.split()[0] if user_name else "Scholar"
+        
         if not clean_user_message:
-             return "I didn't quite catch the specifics. Could you provide a bit more detail?"
+             return f"I didn't quite catch that, {first_name}. Could you provide a bit more detail?"
 
         best_intent = None
         highest_confidence = 0
@@ -64,20 +65,30 @@ class EbenEngine:
 
         matched_tag = best_intent['tag'] if best_intent else "unmatched"
         
-        # --- LOG TO SQL INSTEAD OF CSV ---
-        self.log_to_db(user_message, clean_user_message, matched_tag, highest_confidence)
+        # Log to SQL with user_name now included
+        self.log_to_db(user_name, user_message, clean_user_message, matched_tag, highest_confidence)
 
         if highest_confidence < 60:
-            return "I'm picking up your signal, but I want to be precise. Could you rephrase that?"
+            return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase that?"
             
-        return random.choice(best_intent['responses'])
+        # Select response and inject name if {name} placeholder exists in intents.json
+        raw_response = random.choice(best_intent['responses'])
+        
+        # If your JSON has {name}, it replaces it. If not, we can just prefix it for a personal touch.
+        if "{name}" in raw_response:
+            return raw_response.replace("{name}", first_name)
+        else:
+            return f"Certainly {first_name}, {raw_response}"
 
 eben = EbenEngine('intents.json')
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.get_json()
-    bot_response = eben.process_message(data.get('message', ''))
+    message = data.get('message', '')
+    user_name = data.get('user_name', 'Scholar') # Captured from Laravel payload
+    
+    bot_response = eben.process_message(message, user_name)
     return jsonify({"response": bot_response, "signature": "E.B.E.N."})
 
 if __name__ == '__main__':
