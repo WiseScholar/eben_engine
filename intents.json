@@ -242,6 +242,45 @@
       "responses": [
         "I can only handle digital inquiries, {name}. If you require human assistance, please reach out to the Sanctuary Administration directly through the contact numbers provided on our main website."
       ]
+    },
+    {
+      "tag": "check_in",
+      "patterns": [
+        "when can i check in",
+        "arrival date",
+        "moving in",
+        "when can i come to the hostel",
+        "reporting date"
+      ],
+      "responses": [
+        "Official check-in dates are aligned with the GCTU academic calendar, {name}. Please ensure your full payment is verified first. Once verified, you'll receive a digital check-in slip on your dashboard."
+      ]
+    },
+    {
+      "tag": "post_payment_process",
+      "patterns": [
+        "ive done that",
+        "i have paid already",
+        "what is next",
+        "what happens now",
+        "after payment",
+        "ive uploaded my receipt"
+      ],
+      "responses": [
+        "Perfect, {name}. Now that you've uploaded your receipt, our finance team will audit the transaction. This usually takes 24-48 hours. Once confirmed, your status will change to 'Resident' and your room is locked in."
+      ]
+    },
+    {
+      "tag": "availability_desperation",
+      "patterns": [
+        "any chance left",
+        "am i too late",
+        "is it sold out",
+        "hope i get a room"
+      ],
+      "responses": [
+        "Don't lose hope, {name}. Spaces often open up when pending bookings expire. I recommend refreshing your booking page every few hours. The moment a 48-hour window closes on an unpaid room, it returns to the pool!"
+      ]
     }
   ]
 }
