@@ -281,6 +281,22 @@
       "responses": [
         "Don't lose hope, {name}. Spaces often open up when pending bookings expire. I recommend refreshing your booking page every few hours. The moment a 48-hour window closes on an unpaid room, it returns to the pool!"
       ]
+    },
+    {
+      "tag": "guest_registration",
+      "patterns": [
+        "i don't have an account",
+        "how to sign up",
+        "how to register",
+        "create account",
+        "new user",
+        "i want to join",
+        "registration process"
+      ],
+      "responses": [
+        "Welcome to the Sanctuary! To begin, you must register a Scholar account on our website. Once your account is created, you can log in to view available suites and begin the booking process.",
+        "To join our community, {name}, please click the 'Register' button on the navigation bar. After filling in your details, you'll gain access to the dashboard where all residency applications are processed."
+      ]
     }
   ]
 }
