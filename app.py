@@ -13,7 +13,6 @@ CORS(app)
 
 load_dotenv()
 
-# Update your DB_CONFIG to use os.getenv()
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
     "user": os.getenv("DB_USER"),
@@ -22,44 +21,8 @@ DB_CONFIG = {
 }
 
 STOP_WORDS = {
-    "a",
-    "an",
-    "the",
-    "is",
-    "are",
-    "am",
-    "i",
-    "you",
-    "he",
-    "she",
-    "it",
-    "we",
-    "they",
-    "to",
-    "do",
-    "does",
-    "did",
-    "can",
-    "could",
-    "would",
-    "should",
-    "for",
-    "of",
-    "with",
-    "as",
-    "me",
-    "my",
-    "how",
-    "what",
-    "where",
-    "when",
-    "why",
-    "in",
-    "on",
-    "at",
-    "please",
-    "can",
-    "direct",
+    "a","an","the","is","are","am","i","you","he","she","it","we","they","to","do","does","did","can","could",
+    "would","should","for","of","with","as","me","my","how","what","where","when","why","in","on","at","please","can","direct",
 }
 
 
@@ -72,7 +35,6 @@ class EbenEngine:
         try:
             conn = mysql.connector.connect(**DB_CONFIG)
             cursor = conn.cursor()
-            # Fixed: Added a 5th %s for the confidence_score
             query = "INSERT INTO eben_chat_logs (user_name, user_message, cleaned_message, matched_intent, confidence_score) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(query, (user_name, user_msg, clean_msg, intent, int(score)))
             conn.commit()
@@ -90,10 +52,8 @@ class EbenEngine:
 
     def process_message(self, user_message, user_name):
         clean_user_message = self.clean_text(user_message)
-        # Extract first name (e.g., "Eben" from "Eben Tefe")
         first_name = user_name.split()[0] if user_name else "Scholar"
 
-        # Handle empty/unintelligible input
         if not clean_user_message:
             return f"I didn't quite catch that, {first_name}. Could you provide a bit more detail?"
 
@@ -103,7 +63,6 @@ class EbenEngine:
         best_intent = None
         highest_confidence = 0
 
-        # Search memory for the best pattern match
         for intent in self.memory["intents"]:
             for pattern in intent["patterns"]:
                 clean_pattern = self.clean_text(pattern)
@@ -114,40 +73,29 @@ class EbenEngine:
 
         matched_tag = best_intent["tag"] if best_intent else "unmatched"
 
-        # Log telemetry data to SQL
         self.log_to_db(
             user_name, user_message, clean_user_message, matched_tag, highest_confidence
         )
 
-        # Handle low confidence / unmatched queries
+        if user_name == "Guest" and matched_tag == "booking_inquiry":
+            return "I see you're visiting! To book a room, you first need to create an account. Once you register and log in, you can select your suite directly from the dashboard."
+
         if highest_confidence < 60:
-            # We only use the name here once to keep the error polite
             return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase that?"
 
-        # Select a random response from the matched intent
         raw_response = random.choice(best_intent["responses"])
 
-        # --- SMART PERSONALIZATION LOGIC ---
-
-        # 1. If we have a manual {name} placeholder, replace it and return immediately
         if "{name}" in raw_response:
             return raw_response.replace("{name}", first_name)
 
-        # 2. If it's a greeting, we force the name in for a warm welcome
         if matched_tag == "greeting":
-            # Replaces "Scholar" with the first name if it exists in your greeting strings
             return raw_response.replace("Scholar", first_name)
 
-        # 3. For all other intents (pricing, rules, etc.), return the clean response
-        # This prevents the name from appearing in every single bubble.
-        # We also strip out any accidental {name} tags left in the JSON
         return raw_response.replace("{name}", "").strip()
 
 
 eben = EbenEngine("intents.json")
 
-
-# --- HEARTBEAT ENDPOINT ---
 @app.route("/api/status", methods=["GET"])
 def status():
     return (
@@ -161,7 +109,6 @@ def status():
         200,
     )
 
-
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -170,7 +117,6 @@ def chat():
 
     bot_response = eben.process_message(message, user_name)
     return jsonify({"response": bot_response, "signature": "E.B.E.N."})
-
 
 if __name__ == "__main__":
     app.run(debug=False)
