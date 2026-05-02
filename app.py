@@ -21,8 +21,9 @@ DB_CONFIG = {
 }
 
 STOP_WORDS = {
-    "a","an","the","is","are","am","i","you","he","she","it","we","they","to","do","does","did","can","could",
-    "would","should","for","of","with","as","me","my","how","what","where","when","why","in","on","at","please","can","direct",
+    "a", "an", "the", "is", "are", "am", "i", "you", "he", "she", "it", "we", "they",
+    "to", "do", "does", "did", "can", "could", "would", "should", "for", "of", "with",
+    "as", "me", "my", "how", "what", "where", "when", "why", "in", "on", "at", "please", "can", "direct"
 }
 
 
@@ -57,9 +58,6 @@ class EbenEngine:
         if not clean_user_message:
             return f"I didn't quite catch that, {first_name}. Could you provide a bit more detail?"
 
-        if user_name == "Guest" and matched_tag == "booking_inquiry":
-            return "I see you're visiting! To book a room, you first need to create an account. Once you register and log in, you can select your suite directly from the dashboard."
-
         best_intent = None
         highest_confidence = 0
 
@@ -79,6 +77,9 @@ class EbenEngine:
 
         if user_name == "Guest" and matched_tag == "booking_inquiry":
             return "I see you're visiting! To book a room, you first need to create an account. Once you register and log in, you can select your suite directly from the dashboard."
+        
+        if user_name == "Guest" and matched_tag == "guest_registration":
+            return "Welcome to the Sanctuary! To begin, click the 'Register' button on the navigation bar. Once you create an account, you can log in to view available suites."
 
         if highest_confidence < 60:
             return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase that?"
