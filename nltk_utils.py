@@ -6,8 +6,8 @@ from nltk.stem.porter import PorterStemmer
 stemmer = PorterStemmer()
 
 # Only run this once to download the tokenizer package
-nltk.download('punkt') 
-nltk.download('punkt_tab') # Might be required depending on your NLTK version
+# nltk.download('punkt') 
+# nltk.download('punkt_tab') # Might be required depending on your NLTK version
 
 def tokenize(sentence):
     """
