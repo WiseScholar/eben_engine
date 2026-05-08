@@ -1,6 +1,9 @@
 flask
 flask-cors
-thefuzz
 mysql-connector-python
 python-dotenv
 gunicorn
+torch
+nltk
+numpy
+google-genai
