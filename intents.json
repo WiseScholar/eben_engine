@@ -414,6 +414,16 @@
         "cant attach receipt"
       ],
       "responses": ["SYSTEM_DIAGNOSTIC_TRIGGER_UPLOAD"]
+    },
+    {
+      "tag": "check_in_status",
+      "patterns": [
+        "Have I checked in?",
+        "Did the ghost checkin work?",
+        "Why am I not checked in yet?",
+        "Confirm my arrival status"
+      ],
+      "responses": ["Let me check the satellites... [CHECK_IN_QUERY]"]
     }
   ]
 }

@@ -161,6 +161,29 @@ def status():
         "message": "Neural systems and LLM fallback stable."
     }), 200
 
+@app.route('/ai/briefing', methods=['POST'])
+def generate_briefing():
+    data = request.get_json()
+    on_site = data.get('on_site')
+    total = data.get('total')
+    recent = data.get('recent')
+    days_left = data.get('days_left')
+
+    prompt = f"""
+    You are E.B.E.N., the Sanctuary Intelligence. 
+    Give a warm, professional, and natural briefing to the Chief Warden.
+    Stats: {on_site} scholars are home out of {total}. 
+    Recently arrived: {recent}. 
+    Days remaining in cycle: {days_left}.
+    Keep it under 3 sentences. Be witty but professional.
+    """
+
+    response = model.generate_content(prompt)
+    
+    return jsonify({
+        "briefing": response.text
+    })
+
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.get_json()
