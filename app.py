@@ -163,36 +163,37 @@ def status():
 
 @app.route('/ai/briefing', methods=['POST'])
 def generate_briefing():
+    # 1. Capture the data from Laravel
     data = request.get_json()
-    on_site = data.get('on_site')
-    total = data.get('total')
-    recent = data.get('recent')
-    days_left = data.get('days_left')
+    on_site = data.get('on_site', 0)
+    total = data.get('total', 1)
+    recent = data.get('recent', "No one yet")
+    days_left = data.get('days_left', 0)
 
-    # The prompt for E.B.E.N.
+    # 2. Craft the Persona
     prompt = f"""
     You are E.B.E.N., the Sanctuary Intelligence. 
     Give a warm, professional, and natural briefing to the Chief Warden.
     Stats: {on_site} scholars are home out of {total}. 
     Recently arrived: {recent}. 
     Days remaining in cycle: {days_left}.
-    Keep it under 3 sentences. Be witty but professional. Plain text only.
+    Keep it under 3 sentences. Plain text only (no bolding or hashtags).
     """
 
-    # FIX: Use llm_client.models.generate_content, NOT model
+    # 3. Use the CORRECT client (llm_client) and the 2026 stable model
     try:
         if llm_client:
-            # Note: Changed to gemini-1.5-flash as 2.5 doesn't exist yet!
+            # We use gemini-2.0-flash because it's the stable workhorse in 2026
             response = llm_client.models.generate_content(
-                model='gemini-1.5-flash', 
+                model='gemini-2.0-flash', 
                 contents=prompt
             )
             return jsonify({"briefing": response.text.strip()})
         else:
-            return jsonify({"briefing": "Intelligence systems are offline."}), 500
+            return jsonify({"briefing": "AI systems are offline. Please check your API keys."}), 500
     except Exception as e:
-        print(f"Briefing Error: {e}")
-        return jsonify({"error": str(e)}), 500
+        print(f"Briefing Crash: {e}")
+        return jsonify({"error": "Neural sync failed"}), 500
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
