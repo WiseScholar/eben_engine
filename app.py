@@ -169,20 +169,30 @@ def generate_briefing():
     recent = data.get('recent')
     days_left = data.get('days_left')
 
+    # The prompt for E.B.E.N.
     prompt = f"""
     You are E.B.E.N., the Sanctuary Intelligence. 
     Give a warm, professional, and natural briefing to the Chief Warden.
     Stats: {on_site} scholars are home out of {total}. 
     Recently arrived: {recent}. 
     Days remaining in cycle: {days_left}.
-    Keep it under 3 sentences. Be witty but professional.
+    Keep it under 3 sentences. Be witty but professional. Plain text only.
     """
 
-    response = model.generate_content(prompt)
-    
-    return jsonify({
-        "briefing": response.text
-    })
+    # FIX: Use llm_client.models.generate_content, NOT model
+    try:
+        if llm_client:
+            # Note: Changed to gemini-1.5-flash as 2.5 doesn't exist yet!
+            response = llm_client.models.generate_content(
+                model='gemini-1.5-flash', 
+                contents=prompt
+            )
+            return jsonify({"briefing": response.text.strip()})
+        else:
+            return jsonify({"briefing": "Intelligence systems are offline."}), 500
+    except Exception as e:
+        print(f"Briefing Error: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
