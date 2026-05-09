@@ -161,40 +161,6 @@ def status():
         "message": "Neural systems and LLM fallback stable."
     }), 200
 
-@app.route('/ai/briefing', methods=['POST'])
-def generate_briefing():
-    # 1. Capture the data from Laravel
-    data = request.get_json()
-    on_site = data.get('on_site', 0)
-    total = data.get('total', 1)
-    recent = data.get('recent', "No one yet")
-    days_left = data.get('days_left', 0)
-
-    # 2. Craft the Persona
-    prompt = f"""
-    You are E.B.E.N., the Sanctuary Intelligence. 
-    Give a warm, professional, and natural briefing to the Chief Warden.
-    Stats: {on_site} scholars are home out of {total}. 
-    Recently arrived: {recent}. 
-    Days remaining in cycle: {days_left}.
-    Keep it under 3 sentences. Plain text only (no bolding or hashtags).
-    """
-
-    # 3. Use the CORRECT client (llm_client) and the 2026 stable model
-    try:
-        if llm_client:
-            # We use gemini-2.0-flash because it's the stable workhorse in 2026
-            response = llm_client.models.generate_content(
-                model='gemini-2.0-flash', 
-                contents=prompt
-            )
-            return jsonify({"briefing": response.text.strip()})
-        else:
-            return jsonify({"briefing": "AI systems are offline. Please check your API keys."}), 500
-    except Exception as e:
-        print(f"Briefing Crash: {e}")
-        return jsonify({"error": "Neural sync failed"}), 500
-
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.get_json()
