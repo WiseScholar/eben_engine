@@ -272,7 +272,7 @@
         "Have I checked in?", "Did the ghost checkin work?", 
         "Why am I not checked in yet?", "Confirm my arrival status"
       ],
-      "responses": ["Let me check the satellites... [CHECK_IN_QUERY]"]
+      "responses": ["Check your dashboard, {name}. If your status still shows 'Pending', the system is still processing your check-in. Please make sure you have your location turned on."]
     }
   ]
 }
