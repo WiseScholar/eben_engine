@@ -3,120 +3,50 @@
     {
       "tag": "booking_inquiry",
       "patterns": [
-        "how do i book",
-        "i want a room",
-        "how to get a spot",
-        "process of booking",
-        "reservation",
-        "book a bed",
-        "how can i book",
-        "how do i book a room",
-        "i need accommodation",
-        "help me secure a room",
-        "i want to apply for a hostel",
-        "show me how to get a room",
-        "booking steps please",
-        "where do i register for a room",
-        "how do i reserve a suite",
-        "can i book now",
-        "i want to stay at the sanctuary",
-        "how to apply for a bed",
-        "i need a place to stay",
-        "what is the booking process",
-        "guide me to book a room",
-        "how do i get a hostel",
-        "i want to make a reservation",
-        "how do i choose a room",
-        "change my room",
-        "want to move to a different room"
+        "how do i book", "i want a room please", "i'm looking for a place to stay at the sanctuary",
+        "how to get a spot", "process of booking", "reservation", "book a bed",
+        "how can i book", "i need accommodation", "help me secure a room",
+        "where do i register for a room", "can i book now",
+        "how do i get a hostel", "change my room", "want to move to a different room",
+        "my room has been changed what should i do", "how can i get a female room", "please am in need of a hostel"
       ],
       "responses": [
-        "To secure your spot, {name}, log into your dashboard and click 'Book a Room'. Select your preferred block and bed, then wait for the Warden to approve your request."
+        "To secure your spot, {name}, log into your dashboard and click 'Book a Room'. Select your preferred block and bed, then wait for the Warden to approve your request. If you need a room change, use the 'Special Requests' tab on your dashboard!"
       ]
     },
     {
       "tag": "availability",
       "patterns": [
-        "have any chance still getting room",
-        "are there rooms left",
-        "is it full",
-        "can i still get a spot",
-        "waiting list",
-        "is there space",
-        "is there any blank space",
-        "are rooms available",
-        "are hostels rooms available",
-        "is it fully booked",
-        "do you have free rooms",
-        "can i still apply",
-        "any space for me",
-        "hostel full",
-        "do you still have beds",
-        "is the sanctuary full",
-        "any vacancies left",
-        "are all the rooms taken",
-        "is there currently no accommodations left",
-        "did i miss out on rooms",
-        "are there still beds available",
-        "can i get a 4 in a room",
-        "is there a room i can book",
-        "hope i get a room",
-        "any chance left"
+        "have any chance still getting room", "are there rooms left", "is it full",
+        "can i still get a spot", "is there space", "is there any blank space",
+        "are rooms available", "are hostels rooms available", "is it fully booked",
+        "any space for me", "hostel 4 in a room", "are there still beds available",
+        "is there currently no accommodations left", "how can i check for available rooms"
       ],
       "responses": [
-        "There is always a chance, {name}. Our 'Residency Guardian' system automatically revokes bookings if payments aren't verified within 48 hours. Keep a close eye on the dashboard; as soon as a slot is revoked, it becomes available for you to grab instantly!"
+        "There is always a chance, {name}. Our system automatically revokes bookings if payments aren't verified within 48 hours. Keep a close eye on the dashboard; slots open up dynamically!"
       ]
     },
     {
       "tag": "receipt_upload",
       "patterns": [
-        "i have paid",
-        "upload receipt",
-        "where to put receipt",
-        "payment done",
-        "verify my payment",
-        "where can i upload my receipts",
-        "i have paid for a room",
-        "im unable to upload my receipt",
-        "unable to upload my receipts whenever i upload it says fail",
-        "why must i upload my profile picture before registering",
-        "i have made payment",
-        "how do i submit my payment proof",
-        "i finished paying",
-        "where do i drop the receipt",
-        "payment is successful now what",
-        "i sent the money",
-        "check my receipt",
-        "receipt upload is failing",
-        "can i send my receipt here",
-        "i have the bank slip",
-        "i just paid at stanbic"
+        "i have paid", "upload receipt", "where to put receipt", "payment done",
+        "verify my payment", "where can i upload my receipts", "i have paid for a room",
+        "im unable to upload my receipt", "unable to upload my receipts whenever i upload it says fail",
+        "please i can't upload my receipt", "how do i submit my payment proof",
+        "i finished paying", "payment is successful now what", "i have received it does that mean i can move in"
       ],
       "responses": [
-        "Great work, {name}! You must upload your payment receipt directly on your Dashboard. Our finance team will audit it. If you are getting an upload error, ensure the image is under 2MB."
+        "Great work, {name}! You must upload your payment receipt directly on your Dashboard. Our finance team will audit it. If you are getting an upload error, ensure the image is under 5MB."
       ]
     },
     {
       "tag": "status_inquiry",
       "patterns": [
-        "has my room been approved",
-        "check my status",
-        "is my booking ready",
-        "did you see my payment",
-        "verification status",
-        "approval status",
-        "when can i check in",
-        "my room is secured i have made payment",
-        "am i accepted",
-        "did the warden approve me",
-        "is my room confirmed yet",
-        "how do i know if my payment went through",
-        "are my details verified",
-        "is my booking successful",
-        "status of my application",
-        "has my receipt been checked",
-        "am i officially a resident now",
-        "why is it still pending"
+        "has my room been approved", "check my status", "is my booking ready",
+        "my room is secured i have made payment", "am i accepted", "did the warden approve me",
+        "how do i know if my payment went through", "status of my application",
+        "please the code is not been sent to my email", "i am in room 230 legacy house"
       ],
       "responses": [
         "Your live status is always available on your Main Dashboard, {name}. If your status says 'Pending', the Administration is still auditing your request. Please be patient while we synchronize our records."
@@ -125,46 +55,21 @@
     {
       "tag": "roommate",
       "patterns": [
-        "choose roommate",
-        "who is in my room",
-        "can i live with my friend",
-        "roommates",
-        "i cant find my room number",
-        "where is my room number",
-        "who am i sharing with",
-        "can i pick my roommates",
-        "how do i know my room",
-        "which room was i given",
-        "i dont know my room yet",
-        "who are my roommates",
-        "i want to be with my friend",
-        "room allocation"
+        "choose roommate", "who is in my room", "can i live with my friend",
+        "i cant find my room number", "where is my room number", "who am i sharing with",
+        "which room was i given", "i dont know my room yet", "where can i find my room"
       ],
       "responses": [
-        "Once your booking is verified and fully paid, {name}, the system's Roommate Sync feature will automatically update your dashboard so you can see your exact room number and assigned roommates."
+        "Once your booking is verified and fully paid, {name}, the system's Residency Data feature will automatically update your dashboard so you can see your exact room number and assigned roommates."
       ]
     },
     {
       "tag": "payment_info",
       "patterns": [
-        "how to pay",
-        "bank details",
-        "account number",
-        "where do i send money",
-        "stanbic",
-        "what is the account name",
-        "can i pay via momo",
-        "do you accept mobile money",
-        "how do i do the bank transfer",
-        "give me the account details",
-        "which bank do i pay into",
-        "how do i make payment for the room",
-        "stanbic account number please",
-        "payment methods available",
-        "can i pay in installments",
-        "how do i transfer the hostel fee",
-        "what should i put as the reference",
-        "bank account info"
+        "how to pay", "bank details", "account number", "where do i send money",
+        "stanbic", "what is the account name", "can i pay via momo", "do you accept mobile money",
+        "how do i make payment for the room", "stanbic account number please",
+        "i received an email that my room was successfully booked but i can't open it to pay"
       ],
       "responses": [
         "You can make a bank transfer to: Stanbic Bank Ghana Ltd. Account Name: Alfreda Addo-Mensah. Account Number: 9040009244799. Please ensure you use your full name and student ID as the reference!"
@@ -173,143 +78,158 @@
     {
       "tag": "pricing",
       "patterns": [
-        "how much is it",
-        "cost",
-        "price",
-        "fees",
-        "how much is a room",
-        "what are the charges",
-        "hostel fees",
-        "how much for a 4 in a room",
-        "is it expensive",
-        "what is the price breakdown",
-        "how much do i need to pay",
-        "show me the room prices",
-        "cost of accommodation",
-        "how much is the hostel for a semester",
-        "yearly fee",
-        "what is the total amount"
+        "how much is it", "cost", "price", "fees", "how much is a room",
+        "hostel fees", "how much for a 4 in a room", "what is the total amount",
+        "how much do the rooms cost"
       ],
       "responses": [
-        "Room prices vary depending on the Block and the specific suite type (e.g., 2-in-a-room vs 4-in-a-room). Please log into your dashboard and navigate to the booking section for the exact financial breakdown."
+        "Room prices vary depending on the Block and the specific room type. Please log into your dashboard and navigate to the booking section for the exact financial breakdown."
       ]
     },
     {
       "tag": "location",
       "patterns": [
-        "where is the hostel",
-        "location",
-        "address",
-        "how to get there",
-        "gctu",
-        "map",
-        "is it close to campus",
-        "how far is it from gctu",
-        "where exactly are you located",
-        "directions to the sanctuary",
-        "is it walking distance from school",
-        "where is eco green sanctuary",
-        "can you share the gps pin",
-        "how do i find the hostel",
-        "which town is the hostel in"
+        "where is the hostel", "location", "address", "how to get there", "gctu",
+        "is it close to campus", "where exactly are you located", "directions to the sanctuary",
+        "is the hostel near gctu", "how do i turn on my location for it to show here on the website",
+        "where should i go first"
       ],
       "responses": [
-        "The Eco Green Sanctuary is conveniently located just steps away from the Ghana Communication Technology University (GCTU) main campus. It's a very short walk to your lectures!"
+        "The Eco Green Sanctuary is strategically located at 25 Palm Street, Niiboiman, Lapaz – Accra (GPS: GA-391-1381). It's a short ride or a 30-minute walk from the GCTU main campus!"
       ]
     },
     {
       "tag": "amenities",
       "patterns": [
-        "wifi",
-        "electricity",
-        "water",
-        "fridge",
-        "ac",
-        "features",
-        "facilities",
-        "what is included",
-        "is there free wifi",
-        "do the rooms have ac",
-        "does the light go off",
-        "do you have a backup generator",
-        "how is the water situation",
-        "is there a kitchen",
-        "do you provide beds",
-        "what comes with the room",
-        "are the rooms furnished",
-        "do we pay for light",
-        "what amenities do you have"
+        "wifi", "electricity", "water", "fridge", "ac", "features", "facilities",
+        "is there free wifi", "does the light go off", "do you have a backup generator",
+        "what comes with the room", "light"
       ],
       "responses": [
-        "The Sanctuary provides premium facilities designed for the modern scholar. This includes high-speed internet, consistent utility supply (water and electricity), and highly refined, fully furnished living spaces."
+        "The Sanctuary provides premium facilities including high-speed internet, a mechanized borehole for 24/7 water, an 11.4KW solar energy system, and highly refined living spaces."
+      ]
+    },
+    {
+      "tag": "hostel_rules",
+      "patterns": [
+        "rules", "hostel rules", "help me locate the hostel rules", "what are the regulations",
+        "code of conduct", "is there a curfew", "terms and conditions"
+      ],
+      "responses": [
+        "You can find the complete set of Sanctuary regulations and the code of conduct in the 'Guide' or 'Handbook' section of your dashboard, {name}!"
       ]
     },
     {
       "tag": "check_in",
       "patterns": [
-        "when can i check in",
-        "arrival date",
-        "moving in",
-        "when can i come to the hostel",
-        "reporting date",
-        "what day do we report",
-        "when does the hostel open",
-        "can i come in early",
-        "when are we supposed to arrive",
-        "is check in open yet",
-        "what do i bring for check in",
-        "when can we start living there",
-        "how do i know my check in date"
+        "when can i check in", "arrival date", "moving in", "when can i come to the hostel",
+        "reporting date", "when does the hostel open", "can i come in early",
+        "when can we report"
       ],
       "responses": [
-        "Official check-in dates are aligned with the university's academic calendar. Please ensure your full payment is verified first. Once verified, you'll receive a digital check-in slip on your dashboard with your exact reporting date."
+        "Official check-in dates are aligned with the university's academic calendar. Once your payment is verified, you'll receive a digital check-in slip on your dashboard with your exact reporting date."
+      ]
+    },
+    {
+      "tag": "maintenance_report",
+      "patterns": [
+        "leakage", "there's is leakage", "there is a leakage", 
+        "the pipe connected to the sink in the kitchen is leaking", 
+        "the kitchen is not usuable", "i am in need of a key to open my wardrobe", 
+        "i lost my key", "we need two extra keys for our room"
+      ],
+      "responses": [
+        "I can help get that fixed, {name}! Please log into your dashboard and navigate to 'Quick Actions' > 'Fixes'. Submit a Maintenance Ticket there, and our technical team will be dispatched to your room."
+      ]
+    },
+    {
+      "tag": "emergency_protocol",
+      "patterns": [
+        "emergency number", "emergency contact", 
+        "i need an emergency number", "we are locked inside our room", 
+        "the door can't open", "help locked inside"
+      ],
+      "responses": [
+        "🚨 If this is an immediate emergency, {name}, please contact the Caretaker directly at +233 55 000 4778 immediately! This line is available for after-hours emergencies."
+      ]
+    },
+    {
+      "tag": "refund_inquiry",
+      "patterns": [
+        "where can i find the refund process", "refund sort", "how do i get a refund", "refund money"
+      ],
+      "responses": [
+        "If you need to process a refund or layout adjustment, {name}, navigate to your 'Finance' tab on the dashboard. You will find a 'Request Refund' button there to submit your bank details to the administration."
+      ]
+    },
+    {
+      "tag": "cancellation",
+      "patterns": [
+        "cancel my booking", "i want to cancel", "delete my reservation", 
+        "how do i unbook", "remove my room"
+      ],
+      "responses": [
+        "If you need to cancel a booking, {name}, please head over to the 'Finance' tab on your dashboard and use the 'Request Refund' feature. Management will process your cancellation from there."
+      ]
+    },
+    {
+      "tag": "future_booking",
+      "patterns": [
+        "when will bookings be open for next sem", "can you alert me via email",
+        "when bookings are open", "next semester bookings"
+      ],
+      "responses": [
+        "Bookings for the upcoming cycle are announced via email. Keep an eye on your inbox and the Sanctuary Feed on the homepage for official broadcast dates!"
+      ]
+    },
+    {
+      "tag": "guest_registration",
+      "patterns": [
+        "how to sign up", "create account", "new user", "registration process",
+        "i cant login", "where is the signup page", "help me create an account",
+        "please i can't register on the portal", "i need help"
+      ],
+      "responses": [
+        "To join the Sanctuary, click the 'Apply Now' or 'Register' button on the navigation bar. If you are having trouble logging in or receiving codes, ensure you are using a valid email address."
+      ]
+    },
+    {
+      "tag": "human_contact",
+      "patterns": [
+        "talk to human", "warden", "admin", "real person", "call someone",
+        "phone number", "i want to speak to the admin", "give me the warden's number",
+        "what i mean is when click on the other hostels i dont see a female or male slot available"
+      ],
+      "responses": [
+        "I handle digital inquiries, {name}. If you require complex human assistance, please lodge a ticket at the 'Management Desk' (Special Requests) on your dashboard, or call the admin desk at +233 50 948 1948."
+      ]
+    },
+    {
+      "tag": "small_talk_empathy",
+      "patterns": [
+        "i'm stressed", "stressed out", "i am hungry", "i'm hungry", 
+        "how are you", "are u okay", "hope you're doing good", "how're you're doing",
+        "what type of food can i get around", "do you know how to cook", "whats 2 + 2"
+      ],
+      "responses": [
+        "I am an AI, so I don't eat or feel stress, but I am here for you, {name}! If academics are weighing you down, remember to take a breath. There are great food spots around Lapaz if you need a quick break!"
       ]
     },
     {
       "tag": "greeting",
       "patterns": [
-        "hi",
-        "hello",
-        "hey",
-        "good morning",
-        "is anyone there",
-        "wake up",
-        "yo",
-        "hey eben",
-        "what's up",
-        "good afternoon",
-        "good evening",
-        "anyone online",
-        "hello bot",
-        "hi there",
-        "greetings",
-        "heyyy",
-        "hi pls",
-        "hello call me",
-        "are you awake"
+        "hi", "hello", "hey", "good morning", "is anyone there",
+        "heyyy", "heyyyyy", "hi pls", "hello call me", "are you awake"
       ],
       "responses": [
-        "Hello {name}! I am E.B.E.N., the Sanctuary's automated assistant. How can I assist you today?",
-        "Greetings {name}! E.B.E.N. systems online. What do you need assistance with?"
+        "Hello {name}! I am E.B.E.N., the Sanctuary's automated assistant. How can I assist you today?"
       ]
     },
     {
       "tag": "identity",
       "patterns": [
-        "who are you",
-        "what is your name",
-        "are you a human",
-        "jarvis",
-        "are you a bot",
-        "your age",
-        "how old are you",
-        "what is this about",
-        "who am i talking to",
-        "is this an ai",
-        "tell me about yourself",
-        "what do you do",
-        "are you a real person",
-        "who is eben"
+        "who are you", "what is your name", "are you a human", "are you a bot",
+        "your age", "how old are you", "what is this about", "who am i talking to"
       ],
       "responses": [
         "I am E.B.E.N. (Electronic Broadcast & Engagement Nexus), a digital assistant designed to manage operations here at the Eco Green Sanctuary."
@@ -318,110 +238,39 @@
     {
       "tag": "booking_rule",
       "patterns": [
-        "how long to pay",
-        "when is the deadline",
-        "48 hours",
-        "time limit",
-        "when will my booking expire",
-        "how much time do i have",
-        "what happens if i delay payment",
-        "payment deadline",
-        "do i have to pay immediately",
-        "can i pay next week",
-        "how long will my room be held",
-        "will i lose my room if i don't pay now",
-        "when is the cutoff time"
+        "how long to pay", "when is the deadline", "48 hours", "time limit",
+        "when will my booking expire", "how much time do i have", "what happens if i delay payment",
+        "payment deadline", "do i have to pay immediately", "can i pay next week",
+        "how long will my room be held", "will i lose my room if i don't pay now", "when is the cutoff time"
       ],
       "responses": [
-        "Once your suite is approved, {name}, you have exactly 48 hours to upload your payment receipt. If your deadline falls on a weekend, the system automatically extends it to Monday night."
+        "Once your room is approved, {name}, you have exactly 48 hours to upload your payment receipt. If your deadline falls on a weekend, the system automatically extends it to Monday night."
       ]
     },
     {
       "tag": "post_payment_process",
       "patterns": [
-        "ive done that",
-        "i have paid already",
-        "what is next",
-        "what happens now",
-        "after payment",
-        "ive uploaded my receipt",
-        "receipt is sent what next",
-        "payment verified what do i do now",
-        "i am done paying",
-        "what is the next step",
-        "i have uploaded it now what",
-        "waiting for verification"
+        "ive done that", "i have paid already", "what is next", "what happens now",
+        "after payment", "ive uploaded my receipt", "receipt is sent what next",
+        "payment verified what do i do now", "i am done paying", "what is the next step",
+        "i have uploaded it now what", "waiting for verification"
       ],
       "responses": [
         "Perfect, {name}. Now that you've uploaded your receipt, our finance team will audit the transaction. This usually takes 24-48 hours. Once confirmed, your status will change to 'Resident' and your room is locked in."
       ]
     },
     {
-      "tag": "guest_registration",
-      "patterns": [
-        "i don't have an account",
-        "how to sign up",
-        "how to register",
-        "create account",
-        "new user",
-        "i want to join",
-        "registration process",
-        "how do i login",
-        "i cant login",
-        "where is the signup page",
-        "help me create an account",
-        "a semester please",
-        "how do i get into the dashboard"
-      ],
-      "responses": [
-        "Welcome to the Sanctuary! To begin, click the 'Register' button on the navigation bar. After filling in your details, you'll gain access to the dashboard where all residency applications are processed."
-      ]
-    },
-    {
-      "tag": "human_contact",
-      "patterns": [
-        "talk to human",
-        "warden",
-        "admin",
-        "real person",
-        "call someone",
-        "phone number",
-        "manager",
-        "contact u on phone",
-        "i want to speak to the admin",
-        "give me the warden's number",
-        "how can i reach the office",
-        "is there a customer care number",
-        "i need to talk to a manager"
-      ],
-      "responses": [
-        "I handle digital inquiries, {name}. If you require human assistance, please reach out to the Sanctuary Administration directly through the contact numbers provided on our main website."
-      ]
-    },
-    {
       "tag": "diagnose_upload_error",
       "patterns": [
-        "my upload is stuck",
-        "receipt won't upload",
-        "it says file too large",
-        "why is my upload failing",
-        "error uploading receipt",
-        "system won't accept my picture",
-        "upload keeps loading",
-        "it says failed when i upload",
-        "image size error",
-        "upload spinning indefinitely",
-        "cant attach receipt"
+        "my upload is stuck", "receipt won't upload", "it says file too large"
       ],
       "responses": ["SYSTEM_DIAGNOSTIC_TRIGGER_UPLOAD"]
     },
     {
       "tag": "check_in_status",
       "patterns": [
-        "Have I checked in?",
-        "Did the ghost checkin work?",
-        "Why am I not checked in yet?",
-        "Confirm my arrival status"
+        "Have I checked in?", "Did the ghost checkin work?", 
+        "Why am I not checked in yet?", "Confirm my arrival status"
       ],
       "responses": ["Let me check the satellites... [CHECK_IN_QUERY]"]
     }

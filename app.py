@@ -7,12 +7,12 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
-# --- NEW PYTORCH IMPORTS ---
+# --- PYTORCH IMPORTS ---
 import torch
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 
-# --- GENERATIVE AI IMPORTS (NEW SDK) ---
+# --- GENERATIVE AI IMPORTS (GEMINI NEW SDK) ---
 from google import genai
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ else:
     llm_client = None
     print("WARNING: GEMINI_API_KEY not found in .env. Hybrid fallback will be disabled.")
 
-# --- LOAD THE BRAIN ONLY ONCE ON BOOT ---
+# --- LOAD THE PYTORCH BRAIN ON BOOT ---
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 FILE = "data.pth"
 data = torch.load(FILE, map_location=device)
@@ -49,7 +49,8 @@ model_state = data["model_state"]
 
 model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
-model.eval() # Set the model to evaluation (testing) mode
+model.eval()
+
 
 class EbenEngine:
     def __init__(self, knowledge_path):
@@ -68,7 +69,10 @@ class EbenEngine:
         except Exception as e:
             print(f"Database Logging Error: {e}")
 
-    def process_message(self, user_message, user_name):
+    def process_message(self, user_message, user_name, context=None):
+        if context is None:
+            context = {}
+
         first_name = user_name.split()[0] if user_name else "Scholar"
 
         if not user_message.strip():
@@ -80,7 +84,7 @@ class EbenEngine:
         X = X.reshape(1, X.shape[0])
         X = torch.from_numpy(X).to(device)
 
-        # 2. PyTorch Inference (The Thinking Phase)
+        # 2. PyTorch Inference
         output = model(X)
         _, predicted = torch.max(output, dim=1)
         tag = tags[predicted.item()]
@@ -88,39 +92,47 @@ class EbenEngine:
         # 3. Calculate Confidence Score
         probs = torch.softmax(output, dim=1)
         prob = probs[0][predicted.item()]
-        confidence_score = prob.item() * 100 # Convert to percentage like 99.4
+        confidence_score = prob.item() * 100
 
-        # Save a basic cleaned string for your DB records
+        # Save cleaned string to DB logs
         clean_db_string = " ".join(sentence).lower()
         self.log_to_db(user_name, user_message, clean_db_string, tag, confidence_score)
 
         # 4. Handle Guest Overrides
-        if user_name == "Guest" and tag == "booking_inquiry":
-            return "I see you're visiting! To book a room, you first need to create an account. Once you register and log in, you can select your suite directly from the dashboard."
+        if user_name == "Guest" and tag in ["booking_inquiry", "availability"]:
+            return "Welcome to the Sanctuary! To view available suites or apply for a room, please click the 'Register' or 'Apply Now' button on the navigation bar to create an account."
 
-        if user_name == "Guest" and tag == "guest_registration":
-            return "Welcome to the Sanctuary! To begin, click the 'Register' button on the navigation bar. Once you create an account, you can log in to view available suites."
-
-        # 5. The Confidence Threshold (The LLM Hybrid Fallback)
+        # 5. LLM Hybrid Fallback (Confidence < 75.0)
         if confidence_score < 75.0:
-            print(f"[HYBRID SHIFT] PyTorch confidence too low ({confidence_score:.1f}%). Routing to LLM...")
-            
+            print(f"[HYBRID SHIFT] PyTorch confidence low ({confidence_score:.1f}%). Routing to Gemini LLM with context...")
+
             if llm_client:
-                # The System Persona
+                booking_status = context.get('booking_status', 'No Active Booking')
+                room_number = context.get('room_number', 'Unassigned')
+                block_name = context.get('block_name', 'Unassigned')
+                amount_due = context.get('amount_due', 0)
+                open_tickets = context.get('open_tickets', 0)
+
                 prompt = f"""
-                You are E.B.E.N. (Electronic Broadcast & Engagement Nexus), the highly intelligent, slightly witty, and helpful digital assistant for the Eco Green Sanctuary student hostel at Ghana Communication Technology University (GCTU).
+                You are E.B.E.N. (Electronic Broadcast & Engagement Nexus), the highly intelligent, hospitable, and helpful digital assistant for the Eco Green Sanctuary student hostel at Ghana Communication Technology University (GCTU).
                 You are currently talking to a scholar named {first_name}.
-                
+
+                LIVE STUDENT CONTEXT:
+                - Booking Status: {booking_status}
+                - Assigned Room: Room {room_number} ({block_name})
+                - Outstanding Balance: GHS {amount_due}
+                - Active Tickets/Requests: {open_tickets}
+
                 Strict Rules:
-                1. Keep your response brief, friendly, and conversational (under 3 sentences).
-                2. Do NOT invent any hostel rules, prices, or bank account numbers. 
-                3. If the student asks a specific technical question about the hostel that you don't know, casually tell them to rephrase it so your core systems can process it.
-                
+                1. Keep your response brief, friendly, natural, and conversational (1 to 3 sentences max).
+                2. Do NOT invent any hostel rules, prices, or bank account numbers.
+                3. Use the LIVE STUDENT CONTEXT above to answer questions accurately if the student asks about their room, booking status, or tickets.
+                4. If the question is completely unrelated to the hostel or academic living, politely guide them back to Sanctuary operations.
+
                 Student says: "{user_message}"
                 """
-                
+
                 try:
-                    # Using the new SDK syntax to generate content
                     response = llm_client.models.generate_content(
                         model='gemini-2.5-flash',
                         contents=prompt,
@@ -128,47 +140,49 @@ class EbenEngine:
                     return response.text.strip()
                 except Exception as e:
                     print(f"LLM Error: {e}")
-                    return f"I'm picking up your signal, {first_name}, but my conversational circuits are a bit overloaded. Could you rephrase that?"
+                    return f"I'm picking up your signal, {first_name}, but my conversational circuits are experiencing high latency. Could you rephrase that for me?"
             else:
-                # Failsafe if the API key isn't configured yet
-                return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase that?"
+                return f"I'm picking up your signal, {first_name}, but I want to be precise. Could you rephrase your question?"
 
-        # 6. Fetch the Response (High Confidence Core Logic)
+        # 6. Core Logic Response (Confidence >= 75.0)
         for intent in self.memory["intents"]:
             if tag == intent["tag"]:
                 raw_response = random.choice(intent["responses"])
 
-                # --- PHASE 5 HOOK: The Problem Solving Agent ---
                 if raw_response == "SYSTEM_DIAGNOSTIC_TRIGGER_UPLOAD":
-                    return f"[AGENT DIAGNOSTIC TRIGGERED] Give me a moment, {first_name}, I am checking the server logs for your receipt upload error..."
-                
-                # Standard Text Replacements
+                    return f"I noticed you're having trouble with file uploads, {first_name}. Please ensure your receipt image is in JPG or PNG format and under 5MB. If it persists, try clearing your browser cache."
+
                 if "{name}" in raw_response:
                     return raw_response.replace("{name}", first_name)
-                
+
                 if tag == "greeting":
                     return raw_response.replace("Scholar", first_name)
-                
+
                 return raw_response.replace("{name}", "").strip()
 
+
 eben = EbenEngine("intents.json")
+
 
 @app.route("/api/status", methods=["GET"])
 def status():
     return jsonify({
         "status": "online",
-        "engine": "E.B.E.N. v4.0 (Hybrid PyTorch+LLM)",
-        "message": "Neural systems and LLM fallback stable."
+        "engine": "E.B.E.N. v4.0 (Hybrid PyTorch + Gemini Live Context)",
+        "message": "Neural systems and LLM context engine active."
     }), 200
+
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
+    data = request.get_json() or {}
     message = data.get("message", "")
     user_name = data.get("user_name", "Scholar")
+    context = data.get("context", {})
 
-    bot_response = eben.process_message(message, user_name)
+    bot_response = eben.process_message(message, user_name, context)
     return jsonify({"response": bot_response, "signature": "E.B.E.N. v4"})
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5050, debug=False)
